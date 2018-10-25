@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link href='https://fonts.gstatic.com' rel='preconnect' crossorigin>
+    <link href="//assets.publishing.service.gov.uk" rel="preconnect" crossorigin>
+    <link rel="dns-prefetch" href="//assets.publishing.service.gov.uk">
     <title><% if @publication %><%= page_title(@publication) %><% else %><%= yield :title %><% end %></title>
     <%= yield :extra_stylesheets %>
 
