@@ -10,6 +10,11 @@ class HelpController < ApplicationController
     render locals: { full_width: true }
   end
 
+  def cookie_settings
+    # TODO: replace this with the actual path once this has been decided and a content item is published
+    setup_content_item("/tour")
+  end
+
   def ab_testing
     setup_content_item("/help/ab-testing")
     ab_test = GovukAbTesting::AbTest.new("Example", dimension: 40)

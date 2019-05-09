@@ -1,6 +1,17 @@
 en:
   common:
     last_updated: "Last updated"
+  cookies:
+    cookie_settings: "Cookie settings"
+    cookies_on_govuk: "Cookies on GOV.UK"
+    on: "On"
+    off: "Off"
+    save_changes: "Save changes"
+    types:
+      campaigns: "Cookies that help with campaigns"
+      essential: "Essential cookies"
+      settings: "Cookies that remember your settings"
+      usage: "Cookies that measure website use"
   formats:
     transaction:
       name: "Service"
