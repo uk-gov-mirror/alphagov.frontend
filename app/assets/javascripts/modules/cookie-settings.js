@@ -41,8 +41,11 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
   CookieSettings.prototype.submitSettingsForm = function (event) {
     event.preventDefault()
 
-    var formInputs = event.target.getElementsByTagName("input");
+    var formInputs = event.target.getElementsByTagName("input")
     var options = {}
+    var confirmationMessage = document.querySelector('div[data-cookie-confirmation]')
+    var previousPageLink = document.querySelector('.cookie-settings__prev-page')
+    var referrer = new URL(document.referrer).pathname
 
     for ( var i = 0; i < formInputs.length; i++ ) {
       var input = formInputs[i]
@@ -55,6 +58,17 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
     }
 
     window.GOVUK.setConsentCookie(options)
+    document.body.scrollTop = document.documentElement.scrollTop = 0
+
+    if (referrer && referrer !== "/help/cookies") {
+      previousPageLink.href = referrer
+      previousPageLink.style.display = "block"
+    } else {
+      previousPageLink.style.display = "none"
+    }
+
+    confirmationMessage.style.display = "block"
+
   }
 
   Modules.CookieSettings = CookieSettings

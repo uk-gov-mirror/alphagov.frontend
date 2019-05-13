@@ -1,6 +1,15 @@
 <% content_for :title, "Cookies on GOV.UK" %>
 
 <main id="content" role="main" class="group help-page">
+  <div class="cookie-settings__confirmation" data-cookie-confirmation="true">
+    <%= render "govuk_publishing_components/components/notice", {
+      title: t('cookies.confirmation_title')
+    } do %>
+      <p><%= t('cookies.confirmation_message') %></p>
+      <a class="govuk_link cookie-settings__prev-page" href='#'><%= t('cookies.confirmation_previous_referrer_link') %></a>
+    <% end %>
+  </div>
+
   <%= render "govuk_publishing_components/components/title", {
     title: t('cookies.cookies_on_govuk')
   } %>
