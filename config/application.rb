@@ -29,6 +29,7 @@ module Frontend
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    config.action_controller.asset_host = "static-new-cookie-banner.herokuapp.com"
 
     config.assets.precompile += %w(
       views/travel-advice.js

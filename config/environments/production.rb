@@ -38,7 +38,7 @@ Rails.application.configure do
   # Set GOVUK_ASSET_ROOT for heroku - for review apps we have the hostname set
   # at the time of the app being built so can't be set up in the app.json
   if !ENV.include?('GOVUK_ASSET_ROOT') && ENV['HEROKU_APP_NAME']
-    ENV['GOVUK_ASSET_ROOT'] = "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+    ENV['GOVUK_ASSET_ROOT'] = "https://static-new-cookie-banner.herokuapp.com"
   end
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
