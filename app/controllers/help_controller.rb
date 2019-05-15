@@ -15,6 +15,15 @@ class HelpController < ApplicationController
     setup_content_item("/tour")
   end
 
+  # TODO: remove after user testing
+  def cookie_details
+    setup_content_item("/tour")
+  end
+
+  def universal_credit
+    setup_content_item("/tour")
+  end
+
   def ab_testing
     setup_content_item("/help/ab-testing")
     ab_test = GovukAbTesting::AbTest.new("Example", dimension: 40)
