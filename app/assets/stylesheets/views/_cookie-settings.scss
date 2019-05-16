@@ -2,3 +2,7 @@
   @include core-19;
   display: none;
 }
+
+#cookie-settings__heading {
+  @include bold-24;
+}

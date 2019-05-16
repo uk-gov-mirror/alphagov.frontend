@@ -18,11 +18,16 @@
   } do %>
     <p>Cookies are files saved on your phone, tablet or computer when you visit a website.</p>
     <p>They store information about how you use the website, such as the pages you visit.</p>
-    <p>Cookies are not viruses or computer programmes. They are very small so do not take up much space.</p>
-    <p><a href="/help/cookie-details">Find out more about cookies on GOV.UK.</a></p>
+    <p>Cookies are used, for example, to:
+      <ul>
+        <li>measure how you use the website so it can be updated and improved based on your needs</li>
+        <li>remember the notifications you've seen so we do not show them to you again</li>
+        <li>remember you while you’re changing your GOV.UK email subscriptions</li>
+      </ul>
+    </p>
 
     <h2>Government services</h2>
-    <p>Most services we link to are run by different government departments, for example HM Revenue and Customs (HMRC) or the Home Office. These services may set additional cookies and, if so, will have their own cookies policy.</p>
+    <p>Most services we link to are run by different government departments, for example HM Revenue and Customs (HMRC) or the Home Office. These services may set additional cookies and, if so, will have their own cookies policy and banner linking to it.</p>
   <% end %>
 
   <%= render "govuk_publishing_components/components/heading", {
@@ -37,7 +42,7 @@
       name: "cookies-settings",
       inline: true,
       heading: t('cookies.types.settings'),
-      hint: "These cookies do things like remember messages you’ve seen, so you're not shown them again.",
+      hint: "These cookies do things like remember your preferences and the choices you make, to personalise your experience of using the site.",
       items: [
         {
           value: "on",
@@ -71,7 +76,12 @@
       name: "cookies-campaigns",
       inline: true,
       heading: t('cookies.types.campaigns'),
-      hint: "These cookies do things like tell us if you've seen our adverts on social media, such as Facebook or Twitter.",
+      hint: "These cookies are set by third party websites and do things like:
+        <ul>
+          <li>tell us if you've seen our adverts on social media, such as Facebook or Twitter</li>
+          <li>measure how you view Youtube videos</li>
+          <li>help record your responses to surveys</li>
+        </ul>".html_safe,
       items: [
         {
           value: "on",
@@ -84,11 +94,19 @@
       ]
     } %>
 
-    <%= render "govuk_publishing_components/components/heading", {
-      text: t('cookies.types.essential'),
-      font_size: 24
-    } %>
-    <p>These cookies do things like keep the website secure. They always need to be on.</p>
+    <%= render "govuk_publishing_components/components/govspeak", {
+      } do %>
+      <h2 id="cookie-settings__heading"><%= t('cookies.types.essential') %></h2>
+      <p>These cookies do things like:</p>
+        <ul>
+          <li>keep the website secure</li>
+          <li>ensure the site functions properly for users</li>
+          <li>remember messages you’ve seen, so that you’re not shown them again</li>
+        </ul>
+      <p>They always need to be on.</p>
+
+      <p><a href="/help/cookie-details">Find out more about cookies on GOV.UK</a></p>
+    <% end %>
 
     <%= render "govuk_publishing_components/components/button", {
       text: t('cookies.save_changes')
