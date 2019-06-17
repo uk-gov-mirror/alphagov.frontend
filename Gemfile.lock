@@ -1,3 +1,27 @@
+PATH
+  remote: ../govuk_app_config
+  specs:
+    govuk_app_config (1.19.0)
+      aws-xray-sdk (~> 0.10.0)
+      logstasher (~> 1.2.2)
+      sentry-raven (~> 2.7.1)
+      statsd-ruby (~> 1.4.0)
+      unicorn (~> 5.4.0)
+
+PATH
+  remote: ../govuk_publishing_components
+  specs:
+    govuk_publishing_components (16.29.0)
+      gds-api-adapters
+      govuk_app_config
+      govuk_frontend_toolkit
+      kramdown
+      plek
+      rails (>= 5.0.0.1)
+      rake
+      rouge
+      sassc-rails (>= 2.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -108,25 +132,9 @@ GEM
       rubocop-rspec (~> 1.28)
       scss_lint
     govuk_ab_testing (2.4.1)
-    govuk_app_config (1.18.1)
-      aws-xray-sdk (~> 0.10.0)
-      logstasher (~> 1.2.2)
-      sentry-raven (~> 2.7.1)
-      statsd-ruby (~> 1.4.0)
-      unicorn (~> 5.4.0)
     govuk_frontend_toolkit (8.2.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
-    govuk_publishing_components (16.27.1)
-      gds-api-adapters
-      govuk_app_config
-      govuk_frontend_toolkit
-      kramdown
-      plek
-      rails (>= 5.0.0.1)
-      rake
-      rouge
-      sassc-rails (>= 2.0.1)
     govuk_schemas (3.2.0)
       json-schema (~> 2.8.0)
     govuk_test (0.4.3)
@@ -373,9 +381,9 @@ DEPENDENCIES
   govuk-content-schema-test-helpers
   govuk-lint
   govuk_ab_testing (~> 2.4, >= 2.4.1)
-  govuk_app_config (~> 1.18.1)
+  govuk_app_config!
   govuk_frontend_toolkit (~> 8.2.0)
-  govuk_publishing_components (~> 16.27.1)
+  govuk_publishing_components!
   govuk_schemas (~> 3.2)
   govuk_test
   htmlentities (~> 4.3.0)
