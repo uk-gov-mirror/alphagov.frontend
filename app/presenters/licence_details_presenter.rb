@@ -20,6 +20,8 @@ class LicenceDetailsPresenter
   end
 
   def has_any_actions?
+    # puts "=========== in has_any_actions"
+    # puts "authority ===> #{authority.inspect}"
     authority && authority["actions"].present?
   end
 
@@ -69,6 +71,10 @@ class LicenceDetailsPresenter
   end
 
   def authority
+    # puts "the authority slug is ===> #{authority_slug}"
+    # puts "========================="
+    # puts "authorities #{authorities}"
+    # puts "========================="
     if authority_slug
       authorities.detect { |a| a["slug"] == authority_slug }
     elsif authorities.size == 1

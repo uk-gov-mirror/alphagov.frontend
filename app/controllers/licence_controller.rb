@@ -34,6 +34,8 @@ class LicenceController < ApplicationController
       redirect_to licence_path(slug: params[:slug])
     elsif @licence_details.local_authority_specific?
       @licence_details = LicenceDetailsPresenter.new(licence_details_from_api_for_local_authority, params[:authority_slug], params[:interaction])
+      # puts "Licence Details from authority ====> #{pp @licence_details}"
+      @licence_details
     end
   end
 
@@ -42,12 +44,22 @@ private
   def set_content_item
     super(LicencePresenter)
     @licence_details = LicenceDetailsPresenter.new(licence_details_from_api, params["authority_slug"], params[:interaction])
+    # puts "==================="
+    # puts "Licence Details ====> #{pp @licence_details}"
+    # puts "has Actions: #{@licence_details.has_any_actions?}"
+    # puts "==================="
+    @licence_details
   end
 
   def licence_details_from_api(snac = nil)
     return {} if @publication.continuation_link.present?
 
     begin
+      # puts "==================="
+      # puts "License identifier #{@publication.licence_identifier}"
+      # puts "snac #{snac}"
+      # puts "detals from API #{pp Services.licensify.details_for_licence(@publication.licence_identifier, snac).parsed_content}"
+      # puts "==================="
       Services.licensify.details_for_licence(@publication.licence_identifier, snac)
     rescue GdsApi::HTTPErrorResponse, GdsApi::TimedOutException
       {}
@@ -56,11 +68,13 @@ private
 
   def licence_details_from_api_for_local_authority
     raise RecordNotFound unless snac_from_slug
-
-    licence_details_from_api(snac_from_slug)
+    deets = licence_details_from_api(snac_from_slug)
+    puts deets
+    deets
   end
 
   def snac_from_slug
+    puts "snac from slug : #{AuthorityLookup.find_snac_from_slug(params[:authority_slug])}"
     @snac_from_slug ||= AuthorityLookup.find_snac_from_slug(params[:authority_slug])
   end
 
