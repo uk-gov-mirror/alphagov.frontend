@@ -30,16 +30,7 @@ module Frontend
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.assets.precompile += %w(
-      views/travel-advice.js
-      frontend.js
-      tour.js
-      application.css
-      application-ie6.css
-      application-ie7.css
-      application-ie8.css
-      print.css
-    )
+    config.assets.precompile = ['manifest.js']
 
     # Path within public/ where assets are compiled to
     config.assets.prefix = "/frontend"
