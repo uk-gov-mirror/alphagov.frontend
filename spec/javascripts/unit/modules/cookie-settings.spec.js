@@ -3,6 +3,7 @@ describe('cookieSettings', function() {
   var cookieSettings,
       container,
       element,
+      errorMessage,
       confirmationContainer,
       fakePreviousURL;
 
@@ -12,6 +13,11 @@ describe('cookieSettings', function() {
     GOVUK.Modules.CookieSettings.prototype.getReferrerLink = function () {
       return fakePreviousURL
     }
+
+    errorMessage = document.createElement('div')
+    errorMessage.style.display = "none"
+    errorMessage.setAttribute('data-cookie-error', 'true')
+    errorMessage.innerHTML = '<p>Error message</p>'
 
     container = document.createElement('div')
     container.innerHTML =
@@ -25,11 +31,13 @@ describe('cookieSettings', function() {
         '<button id="submit-button" type="submit">Submit</button>' +
       '</form>'
 
+    document.body.appendChild(errorMessage)
     document.body.appendChild(container)
 
     confirmationContainer = document.createElement('div')
     confirmationContainer.style.display = "none"
     confirmationContainer.setAttribute('data-cookie-confirmation', 'true')
+
     confirmationContainer.innerHTML =
       '<a class="cookie-settings__prev-page" href="#">View previous page</a>'
 
@@ -40,7 +48,11 @@ describe('cookieSettings', function() {
 
   afterEach(function() {
     document.body.removeChild(container)
+    // document.body.removeChild(errorMessage)
     document.body.removeChild(confirmationContainer)
+    document.cookie.split(';').forEach(function (c) {
+    	document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
+    })
   });
 
   describe('setInitialFormValues', function () {
@@ -63,9 +75,9 @@ describe('cookieSettings', function() {
         var name = radioButtons[i].name.replace('cookies-', '')
 
         if (consentCookieJSON[name]) {
-          expect(radioButtons[i].checked).toBeTruthy()
+          expect(radioButtons[i].checked).toBeFalsy()
         } else {
-          expect(radioButtons[i].checked).not.toBeTruthy()
+          expect(radioButtons[i].checked).not.toBeFalsy()
         }
       }
     });
@@ -73,6 +85,8 @@ describe('cookieSettings', function() {
 
   describe('submitSettingsForm', function() {
     it('updates consent cookie with any changes', function() {
+      // spyOn(window.GOVUK, 'setCookie').and.callThrough()
+      // spyOn(window.GOVUK, 'getCookie').and.callThrough()
       spyOn(window.GOVUK, 'setConsentCookie').and.callThrough()
       cookieSettings.start(element)
 
