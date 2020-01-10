@@ -9,6 +9,7 @@ class HomepageController < ApplicationController
 
     setup_content_item("/")
 
+    @homepage = HomepagePresenter.new
     render locals: { full_width: true }
   end
 end
