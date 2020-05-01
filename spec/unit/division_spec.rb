@@ -23,8 +23,9 @@ RSpec.describe Calendar::Division do
 
   context "years" do
     it "construct a year for each one in the data" do
-      div = Calendar::Division.new("something", "2012" => [1, 2],
-        "2013" => [3, 4])
+      div = Calendar::Division.new("something",
+                                   "2012" => [1, 2],
+                                   "2013" => [3, 4])
       allow(Calendar::Year).to receive(:new).with("2012", div, [1, 2]).and_return(:y_2012)
       allow(Calendar::Year).to receive(:new).with("2013", div, [3, 4]).and_return(:y_2013)
 
@@ -32,8 +33,9 @@ RSpec.describe Calendar::Division do
     end
 
     it "cache the constructed instances" do
-      div = Calendar::Division.new("something", "2012" => [1, 2],
-        "2013" => [3, 4])
+      div = Calendar::Division.new("something",
+                                   "2012" => [1, 2],
+                                   "2013" => [3, 4])
 
       first = div.years
       allow(Calendar::Year).to receive(:new).and_raise(Exception)
@@ -41,10 +43,11 @@ RSpec.describe Calendar::Division do
     end
 
     it "ignore non-year keys in the data" do
-      div = Calendar::Division.new("something", "title" => "A Thing",
-        "2012" => [1, 2],
-        "2013" => [3, 4],
-        "foo" => "bar")
+      div = Calendar::Division.new("something",
+                                   "title" => "A Thing",
+                                   "2012" => [1, 2],
+                                   "2013" => [3, 4],
+                                   "foo" => "bar")
 
       allow(Calendar::Year).to receive(:new).with("2012", div, [1, 2]).and_return(:y_2012)
       allow(Calendar::Year).to receive(:new).with("2013", div, [3, 4]).and_return(:y_2013)
@@ -56,9 +59,10 @@ RSpec.describe Calendar::Division do
 
     context "finding a year by name" do
       before do
-        @div = Calendar::Division.new("something", "title" => "A Division",
-          "2012" => [1, 2],
-          "2013" => [3, 4])
+        @div = Calendar::Division.new("something",
+                                      "title" => "A Division",
+                                      "2012" => [1, 2],
+                                      "2013" => [3, 4])
       end
 
       it "returns the year with the matching name" do

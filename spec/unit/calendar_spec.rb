@@ -25,7 +25,9 @@ RSpec.describe Calendar do
 
   context "divisions" do
     before do
-      @cal = Calendar.new("a-calendar", "title" => "UK bank holidays",
+      @cal = Calendar.new(
+        "a-calendar",
+        "title" => "UK bank holidays",
         "divisions" => {
           "kablooie" => {
             "2012" => [1],
@@ -39,7 +41,8 @@ RSpec.describe Calendar do
             "2012" => [2],
             "2013" => [4],
           },
-        })
+        },
+      )
     end
 
     it "constructs a division for each one in the data" do
@@ -96,7 +99,7 @@ RSpec.describe Calendar do
   context "attribute accessors" do
     before do
       @cal = Calendar.new("a-calendar", "title" => "UK bank holidays",
-        "description" => "UK bank holidays description")
+                                        "description" => "UK bank holidays description")
     end
 
     it "has an accessor for the title" do
