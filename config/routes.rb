@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get "/homepage" => redirect("/")
 
   get "/healthcheck", to: proc { |_|
-    GovukStatsd.gauge "replatforming-test", rand(100)
+    puts "Using #{ENV["STATSD_HOST"]} over #{ENV["STATSD_PROTOCOL"]}"
+    GovukStatsd.increment "replatform"
 
-    [200, {}, ["Wrote to Statsd!"]]
+    [200, {}, ["Wrote fargate.replatform to Statsd!"]]
   }
 
   get "/random" => "random#random_page"
