@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   get "/homepage" => redirect("/")
 
+  get "/healthcheck", to: proc { |_|
+    GovukStatsd.gauge "replatforming-test", rand(100)
+
+    [200, {}, ["Wrote to Statsd!"]]
+  }
+
   get "/random" => "random#random_page"
 
   # Crude way of handling the situation described at
