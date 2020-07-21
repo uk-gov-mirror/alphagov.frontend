@@ -82,6 +82,11 @@ protected
     @content_item ||= GdsApi.content_store.content_item(base_path)
   end
 
+  def find_related_transaction(base_path = "/#{params[:slug]}")
+    transaction_path = base_path.delete_prefix("done")
+    @linked_transaction ||= GdsApi.content_store.content_item(transaction_path).to_hash
+  end
+
 private
 
   def default_url_options

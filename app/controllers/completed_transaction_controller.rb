@@ -13,6 +13,7 @@ class CompletedTransactionController < ApplicationController
 
   def show
     set_content_item(CompletedTransactionPresenter)
+    find_related_transaction(params[:slug])
   end
 
 private
@@ -22,4 +23,5 @@ private
   def show_survey?
     LEGACY_SLUGS.exclude?(params[:slug])
   end
+
 end
