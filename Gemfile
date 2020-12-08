@@ -32,6 +32,7 @@ group :development, :test do
   gem "jasmine_selenium_runner"
   gem "pry-byebug"
   gem "rubocop-govuk"
+  gem "rspec-rails"
 end
 
 group :test do
