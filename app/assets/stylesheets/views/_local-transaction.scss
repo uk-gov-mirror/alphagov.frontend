@@ -6,7 +6,7 @@
     @include govuk-font(36);
   }
 
-  .local-authority{
+  .local-authority,.postcode{
     font-weight: bold;
   }
 }
