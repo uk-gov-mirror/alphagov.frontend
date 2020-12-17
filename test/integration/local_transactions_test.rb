@@ -420,9 +420,8 @@ class LocalTransactionsTest < ActionDispatch::IntegrationTest
         ],
       )
 
-      UnavailableService.stubs(:load_config).returns(
-        YAML.safe_load(File.open(Rails.root.join("test/fixtures/unavailable_services.yml"))),
-      )
+      file = File.open(Rails.root.join("test/fixtures/unavailable_services.yml"))
+      File.stubs(:open).returns(file)
     end
 
     context "without a url" do
@@ -446,7 +445,7 @@ class LocalTransactionsTest < ActionDispatch::IntegrationTest
       should "show a button that links to an appropriate alternate service provider" do
         assert_has_button_as_link(
           "Find other services",
-          href: "http://edinburgh.example.com",
+          href: "http://edinburgh.example.com", # local authority link from stubbed local links
           rel: "external",
           start: true,
         )

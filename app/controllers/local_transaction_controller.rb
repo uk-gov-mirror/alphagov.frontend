@@ -20,26 +20,20 @@ class LocalTransactionController < ApplicationController
       if @location_error
         @postcode = postcode
       elsif mapit_response.location_found?
-        config = UnavailableService.load_config
-        service = UnavailableService.new(lgsl, country_name, config)
-
-        if lgsl == 364 && country_name == "Northern Ireland" ## LGSL code 364 = electoral registration
-          redirect_to local_transaction_results_path(local_authority_slug: "electoral-office-for-northern-ireland")
-
-        elsif service.unavailable?
-          @postcode = postcode
-          @country_name = country_name
-          params[:local_authority_slug] = local_authority_slug
-          @interaction_details = interaction_details
-          @local_authority = local_authority
-
-          @url = @interaction_details.dig("local_interaction", "url").presence || @local_authority.url
-
-          render :unavailable_service
-
-        elsif local_authority_slug
-          redirect_to local_transaction_results_path(local_authority_slug: local_authority_slug)
-        end
+        slug = if lgsl == 364 && country_name == "Northern Ireland"
+                 "electoral-office-for-northern-ireland"
+               else
+                 local_authority_slug
+               end
+      
+        puts "================================================================================"
+        puts "SLUG - CONTROLLER:         [#{slug}]"
+        puts "LGSL - CONTROLLER:         [#{lgsl}]"
+        puts "COUNTRY_NAME - CONTROLLER: [#{country_name}]"
+      
+        redirect_to local_transaction_results_path(local_authority_slug: slug, country_name: country_name)
+      else
+        puts "got to else...."
       end
     end
   end
@@ -48,6 +42,21 @@ class LocalTransactionController < ApplicationController
     @postcode = postcode
     @interaction_details = interaction_details
     @local_authority = local_authority
+    @country_name = params[:country_name]
+    
+    puts "================================================================================"
+    # puts "INTERACTION: [#{@interaction_details.inspect}]"
+    # puts "LOCAL_AUTHORITY: [#{@local_authority.inspect}]"
+    puts "LGSL:         [#{lgsl}]"
+    puts "COUNTRY_NAME: [#{@country_name}]"
+    puts "UNAVAILABLE?: [#{LocalTransactionService.unavailable?(lgsl, @country_name)}]"
+    puts "================================================================================"
+    
+    if LocalTransactionService.unavailable?(lgsl, @country_name)
+      render :unavailable_service
+    else
+      render :results
+    end
   end
 
 private

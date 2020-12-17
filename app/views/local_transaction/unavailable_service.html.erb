@@ -3,6 +3,12 @@
   publication: @publication,
   edition: @edition,
 } do %>
+  <div class="search-again">
+    <%= render "govuk_publishing_components/components/back_link", {
+      href: local_transaction_search_path(@publication.slug),
+    } %>
+  </div>
+
   <div class="interaction">
     <p class="govuk-body">
       We’ve matched the postcode <span class="postcode"><%= @postcode %></span> to <span class="local-authority"><%= @local_authority.name %></span>.
@@ -16,17 +22,10 @@
       <%= render "govuk_publishing_components/components/button", {
         text: "Find other services",
         rel: "external",
-        start: true,
         margin_bottom: true,
-        href: @url,
+        href: @local_authority.url,
       } %>
     </p>
-  </div>
-
-  <div class="search-again">
-    <%= render "govuk_publishing_components/components/back_link", {
-      href: local_transaction_search_path(@publication.slug),
-    } %>
   </div>
 
   <% if @publication.more_information.present? %>
