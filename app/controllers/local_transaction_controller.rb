@@ -1,3 +1,5 @@
+require "gds_api/mapit"
+
 class LocalTransactionController < ApplicationController
   include ActionView::Helpers::TextHelper
   include Cacheable
@@ -73,7 +75,33 @@ private
   def location_from_mapit
     if postcode.present?
       begin
-        location = Frontend.mapit_api.location_for_postcode(postcode)
+        response = {
+          "wgs84_lon" => -0.12769524464003412,
+          "wgs84_lat" => 51.50353968541331,
+          "postcode" => "SW1A 2AA",
+          "areas" =>
+            {
+              "2061" => {
+                "codes" => {
+                  "unit_id" => "11164",
+                  "govuk_slug" => "westminster",
+                  "gss" => "E09000033",
+                  "ons" => "00BK",
+                },
+                "all_names" => {},
+                "type" => "LBO",
+                "country" => "E",
+                "generation_high" => 1,
+                "parent_area" => nil,
+                "country_name" => "England",
+                "name" => "City of Westminster",
+                "generation_low" => 1,
+                "id" => 2061,
+                "type_name" => "London borough",
+              },
+            },
+        }
+        location = GdsApi::Mapit::Location.new(response)
       rescue GdsApi::HTTPNotFound
         location = nil
       rescue GdsApi::HTTPClientError => e
