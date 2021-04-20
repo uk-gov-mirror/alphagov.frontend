@@ -1,6 +1,6 @@
 require "integration_test_helper"
 class ElectoralLookUpTest < ActionDispatch::IntegrationTest
-  TEST_API_URL = "https://test.example.org/api/v1".freeze
+  include ElectionHelpers
 
   setup do
     content = GovukSchemas::Example.find("local_transaction", example_name: "local_transaction")
@@ -19,22 +19,6 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
     File.read(path)
   end
 
-  def stub_api_postcode_lookup(response, postcode)
-    stub_request(:get, "#{TEST_API_URL}/postcode/#{postcode}")
-      .to_return(body: response)
-  end
-
-  def stub_api_address_lookup(response, uprn)
-    stub_request(:get, "#{TEST_API_URL}/address/#{uprn}")
-      .to_return(body: response)
-  end
-
-  def with_test_environment
-    ClimateControl.modify ELECTIONS_API_URL: TEST_API_URL do
-      yield
-    end
-  end
-
   context "visiting the homepage" do
     should "contain a form for entering a postcode" do
       visit "/find-electoral-things"
@@ -46,7 +30,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
   context "searching by postcode" do
     context "when a valid postcode is entered which matches a single address" do
       should "display upcoming elections if available" do
-        with_test_environment do
+        with_electoral_api_url do
           stub_api_postcode_lookup(api_response, "LS11UR")
 
           search_for(postcode: "LS11UR")
@@ -61,7 +45,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         with_different_address["electoral_services"] = { "address" => "bar" }
         stub_api_postcode_lookup(with_different_address.to_json, "LS11UR")
 
-        with_test_environment do
+        with_electoral_api_url do
           search_for(postcode: "LS11UR")
           assert page.has_selector?("h2", text: "Your local council")
           assert page.has_text? "For questions about your poll card, polling place, or about returning your postal voting ballot, contact your council."
@@ -79,7 +63,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         duplicate_contact_information["electoral_services"] = { "address" => "foo" }
         stub_api_postcode_lookup(duplicate_contact_information.to_json, "LS11UR")
 
-        with_test_environment do
+        with_electoral_api_url do
           search_for(postcode: "LS11UR")
 
           assert page.has_no_selector?("h2", text: "Your local council")
@@ -92,7 +76,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         without_dates["dates"] = []
         stub_api_postcode_lookup(without_dates.to_json, "LS11UR")
 
-        with_test_environment do
+        with_electoral_api_url do
           search_for(postcode: "LS11UR")
 
           assert page.has_selector?("h2", text: "Next elections")
@@ -101,7 +85,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
       end
 
       should "with an invalid postcode" do
-        with_test_environment do
+        with_electoral_api_url do
           search_for(postcode: "INVALID POSTCODE")
           assert_selector("h1", text: "Contact your local Electoral Registration Office")
           assert_text("This isn't a valid postcode")
@@ -131,7 +115,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         # Search for postcode
         stub_api_postcode_lookup(with_multiple_addresses.to_json, postcode)
 
-        with_test_environment do
+        with_electoral_api_url do
           search_for(postcode: postcode)
 
           # Multiple addresses are displayed
