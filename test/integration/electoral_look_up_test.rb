@@ -31,7 +31,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
     context "when a valid postcode is entered which matches a single address" do
       should "display upcoming elections if available" do
         with_electoral_api_url do
-          stub_api_postcode_lookup(api_response, "LS11UR")
+          stub_api_postcode_lookup("LS11UR", response: api_response)
 
           search_for(postcode: "LS11UR")
           assert page.has_selector?("h2", text: "Next elections")
@@ -43,7 +43,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         with_different_address = JSON.parse(api_response)
         with_different_address["registration"] = { "address" => "foo" }
         with_different_address["electoral_services"] = { "address" => "bar" }
-        stub_api_postcode_lookup(with_different_address.to_json, "LS11UR")
+        stub_api_postcode_lookup("LS11UR", response: with_different_address.to_json)
 
         with_electoral_api_url do
           search_for(postcode: "LS11UR")
@@ -61,7 +61,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
         duplicate_contact_information = JSON.parse(api_response)
         duplicate_contact_information["registration"] = { "address" => "foo" }
         duplicate_contact_information["electoral_services"] = { "address" => "foo" }
-        stub_api_postcode_lookup(duplicate_contact_information.to_json, "LS11UR")
+        stub_api_postcode_lookup("LS11UR", response: duplicate_contact_information.to_json)
 
         with_electoral_api_url do
           search_for(postcode: "LS11UR")
@@ -74,7 +74,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
       should "inform user if there are no upcoming elections " do
         without_dates = JSON.parse(api_response)
         without_dates["dates"] = []
-        stub_api_postcode_lookup(without_dates.to_json, "LS11UR")
+        stub_api_postcode_lookup("LS11UR", response: without_dates.to_json)
 
         with_electoral_api_url do
           search_for(postcode: "LS11UR")
@@ -113,7 +113,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
           },
         ]
         # Search for postcode
-        stub_api_postcode_lookup(with_multiple_addresses.to_json, postcode)
+        stub_api_postcode_lookup(postcode, response: with_multiple_addresses.to_json)
 
         with_electoral_api_url do
           search_for(postcode: postcode)
@@ -124,7 +124,7 @@ class ElectoralLookUpTest < ActionDispatch::IntegrationTest
           assert page.has_link?("1 BUCKINGHAM PALACE", href: "/find-electoral-things?uprn=1234")
 
           # Click on one of the suggested addresses
-          stub_api_address_lookup(api_response, "1234")
+          stub_api_address_lookup("1234", response: api_response)
           click_link("1 BUCKINGHAM PALACE")
           assert page.has_selector?("p", text: "We've matched the postcode to Cardiff Council")
         end
