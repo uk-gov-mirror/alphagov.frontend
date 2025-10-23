@@ -1065,7 +1065,6 @@ en:
         heading_text: Inside GOV.UK blog
   shared:
     historically_political: This was published under the %{government}
-  sign_up: Sign up
   time:
     formats:
       short_ordinal: "%e %B %Y"

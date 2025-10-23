@@ -819,7 +819,6 @@ yi:
       items:
   shared:
     historically_political:
-  sign_up:
   time:
     formats:
       short_ordinal: "%e %B %Y"

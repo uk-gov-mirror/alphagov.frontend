@@ -740,7 +740,6 @@ th:
       items:
   shared:
     historically_political: เผยแพร่ภายใต้ %{government}
-  sign_up:
   time:
     formats:
       short_ordinal: "%e %B %Y"
