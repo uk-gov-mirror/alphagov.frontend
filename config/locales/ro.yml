@@ -538,8 +538,8 @@ ro:
     map:
       name:
         few:
-        one:
-        other:
+        one: Hartă
+        other: Hărți
     medical_safety_alert:
       name:
         few:
