@@ -638,8 +638,8 @@ ro:
     promotional:
       name:
         few:
-        one:
-        other:
+        one: Material promoțional
+        other: Material promoțional
     publication:
       details: Detalii
       documents:

@@ -638,8 +638,8 @@ sr:
     promotional:
       name:
         few:
-        one:
-        other:
+        one: Promotivni materijal
+        other: Promotivni materijal
     publication:
       details: Detalji
       documents:
