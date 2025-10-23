@@ -596,8 +596,8 @@ fr:
         other:
     regulation:
       name:
-        one:
-        other:
+        one: Règlement
+        other: Règlements
     research:
       name:
         one: Recherche et analyse

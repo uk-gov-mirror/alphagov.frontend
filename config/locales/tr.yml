@@ -596,8 +596,8 @@ tr:
         other:
     regulation:
       name:
-        one:
-        other:
+        one: Düzenleme
+        other: Düzenlemeler
     research:
       name:
         one: Arama ve analiz

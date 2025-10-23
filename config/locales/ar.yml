@@ -842,8 +842,8 @@ ar:
       name:
         few:
         many:
-        one:
-        other:
+        one: لائحة
+        other: لوائح
         two:
         zero:
     research:
