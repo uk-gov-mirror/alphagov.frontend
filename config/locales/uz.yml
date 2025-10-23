@@ -564,8 +564,8 @@ uz:
         other:
     policy_paper:
       name:
-        one:
-        other:
+        one: Сиёсат масалалари бўйича ҳужжат
+        other: Сиёсат масалалари бўйича ҳужжатлари
     press_release:
       name:
         one: Матбуот-релизи
