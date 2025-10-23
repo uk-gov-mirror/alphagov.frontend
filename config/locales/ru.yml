@@ -595,8 +595,8 @@ ru:
       name:
         few:
         many:
-        one:
-        other:
+        one: Национальная статистика
+        other: Национальная статистика
     national_statistics_announcement:
       name:
         few:
