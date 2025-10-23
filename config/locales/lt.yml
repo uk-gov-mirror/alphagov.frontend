@@ -573,8 +573,8 @@ lt:
     notice:
       name:
         few:
-        one:
-        other:
+        one: Pranešimas
+        other: Pranešimai
     official:
       name:
         few:

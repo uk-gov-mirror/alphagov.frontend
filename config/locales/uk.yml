@@ -619,8 +619,8 @@ uk:
       name:
         few:
         many:
-        one:
-        other:
+        one: Повідомлення
+        other: Повідомлення
     official:
       name:
         few:
