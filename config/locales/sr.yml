@@ -663,8 +663,8 @@ sr:
     research:
       name:
         few:
-        one:
-        other:
+        one: Istraživanje i analiza
+        other: Istraživanje i analiza
     residential_property_tribunal_decision:
       name:
         few:
