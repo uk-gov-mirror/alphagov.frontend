@@ -492,7 +492,6 @@ yi:
         one:
         other:
     place:
-      change:
       find_results:
       postcode:
       select_address:

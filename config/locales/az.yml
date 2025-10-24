@@ -492,7 +492,6 @@ az:
         one: Parlamentə şifahi müraciət
         other: Parlamentə şifahi müraciətlər
     place:
-      change:
       find_results:
       postcode:
       select_address:

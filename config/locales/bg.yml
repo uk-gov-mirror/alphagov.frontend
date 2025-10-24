@@ -492,7 +492,6 @@ bg:
         one: Устно изявление в Парламента
         other: Устни изявления в Парламента
     place:
-      change:
       find_results:
       postcode:
       select_address:

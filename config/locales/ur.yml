@@ -492,7 +492,6 @@ ur:
         one: پارلیمان کے لیے زبانی بیان
         other: پارلیمان کے لیے زبانی بیانات
     place:
-      change:
       find_results:
       postcode:
       select_address:
