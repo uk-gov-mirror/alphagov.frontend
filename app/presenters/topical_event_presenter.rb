@@ -1,5 +1,6 @@
 class TopicalEventPresenter < ContentItemPresenter
   include ImpactHeader
+  include OrderedFeaturedDocuments
 
   def about_page_link_text
     content_item.details["about_page_link_text"]
