@@ -7,6 +7,26 @@ RSpec.describe TopicalEventPresenter do
 
   it_behaves_like "it can present an impact header", "topical_event", "topical-event"
 
+  describe "#about_page_link_text" do
+    it "returns nil" do
+      expect(topical_event_presenter.about_page_link_text).to be_nil
+    end
+
+    context "when text is present in the content item" do
+      let(:example_name) { "western-balkans-summit-london-2018" }
+
+      it "returns that text" do
+        expect(topical_event_presenter.about_page_link_text).to eq(content_store_response["details"]["about_page_link_text"])
+      end
+    end
+  end
+
+  describe "#about_page_path" do
+    it "returns the base path with about appended" do
+      expect(topical_event_presenter.about_page_path).to eq("#{content_store_response['base_path']}/about")
+    end
+  end
+
   describe "#body_with_image?" do
     it "returns true" do
       expect(topical_event_presenter.body_with_image?).to be true
